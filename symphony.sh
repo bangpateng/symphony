@@ -42,16 +42,27 @@ sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bs
 wget https://go.dev/dl/go1.22.6.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz
-echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.profile
-source ~/.profile
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
+source ~/.bash_profile
 go version
+
+# Hapus direktori symphony yang sudah ada
+rm -rf symphony
 
 # Clone dan install Symphony
 cd $HOME
 git clone https://github.com/Orchestra-Labs/symphony
 cd symphony
 git checkout v0.2.1
-make install
+
+# Install symphonyd
+go install -mod=readonly -tags "netgo ledger" -ldflags '-X github.com/cosmos/cosmos-sdk/version.Name=symphony -X github.com/cosmos/cosmos-sdk/version.AppName=symphonyd -X github.com/cosmos/cosmos-sdk/version.Version=0.2.1 -X github.com/cosmos/cosmos-sdk/version.Commit=a17ff13d6cd2605e3a536c529094d852b547664a -X "github.com/cosmos/cosmos-sdk/version.BuildTags=netgo,ledger" -w -s' -trimpath github.com/osmosis-labs/osmosis/v23/cmd/symphonyd
+
+# Verifikasi apakah symphonyd tersedia
+if ! command -v symphonyd &> /dev/null; then
+    echo -e "${RED}Error: symphonyd command not found. Please check the installation.${NC}"
+    exit 1
+fi
 
 # Inisialisasi Symphony
 symphonyd init $MONIKER --chain-id $CHAIN_ID
@@ -104,3 +115,6 @@ sudo systemctl restart symphonyd
 # Tampilkan log
 echo -e "${GREEN}Layanan Symphony sedang dijalankan. Tampilkan log:${NC}"
 sudo journalctl -u symphonyd -f -o cat
+
+# Follow us
+echo -e "${CYAN}Follow Us: https://t.me/bangpateng_airdrop${NC}"
