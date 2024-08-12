@@ -111,10 +111,25 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable symphonyd
 sudo systemctl restart symphonyd
-
-# Tampilkan log
-echo -e "${GREEN}Layanan Symphony sedang dijalankan. Tampilkan log:${NC}"
 sudo journalctl -u symphonyd -f -o cat
 
-# Follow us
-echo -e "${CYAN}Follow Us: https://t.me/bangpateng_airdrop${NC}"
+echo -e "${CYAN}Displaying current port configurations:${NC}"
+rpc_port=$(grep -Po '^\s*laddr = "tcp://0.0.0.0:\K[0-9]+' $HOME/.symphonyd/config/config.toml)
+grpc_port=$(grep -Po '^\s*grpc-laddr = "tcp://0.0.0.0:\K[0-9]+' $HOME/.symphonyd/config/config.toml)
+api_port=$(grep -Po '^\s*address = "tcp://0.0.0.0:\K[0-9]+' $HOME/.symphonyd/config/app.toml)
+
+echo -e "${GREEN}RPC Port: $rpc_port${NC}"
+echo -e "${GREEN}gRPC Port: $grpc_port${NC}"
+echo -e "${GREEN}API Port: $api_port${NC}"
+
+if systemctl is-active --quiet symphonyd; then
+    echo -e "${GREEN}Your symphonyd node is installed and running.${NC}"
+else
+    echo -e "${RED}Your symphonyd node installation has failed or the service is not running.${NC}"
+fi
+
+echo -e "for Check Log"
+echo -e "sudo journalctl -u symphonyd -f --no-hostname -o cat"
+echo -e "for Check False is synced"
+echo -e "symphonyd status 2>&1 | jq .SyncInfo.catching_up"
+echo -e "${CYAN}Thank you for using Bang Pateng >> Telegram : @bangpateng_airdrop Tools.${NC}"
