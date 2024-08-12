@@ -8,7 +8,6 @@ echo "░█▀▄░█▀█░█▀█░█▀▀  ░█▀█░█▀█
 echo "░█▀▄░█▀█░█░█░█░█  ░█▀▀░█▀█░░█░░█▀▀░█░█░█░█"
 echo "░▀▀░░▀░▀░▀░▀░▀▀▀  ░▀░░░▀░▀░░▀░░▀▀▀░▀░▀░▀▀▀"
 echo ""
-echo "Name Testnet : Symphony"
 echo "Follow Telegram : @bangpateng_airdrop"
 echo "Website :https://bangpateng.xyz"
 echo -e "${NC}"
