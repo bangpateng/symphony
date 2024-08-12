@@ -6,7 +6,10 @@ CYAN='\033[0;36m'
 RED='\033[0;31m'
 NC='\033[0m' # Tidak ada warna
 
-source ./logo.sh
+log "info" "Fetching and running ..."
+sleep 5
+curl -s https://raw.githubusercontent.com/bangpateng/symphony/main/logo.sh | bash
+sleep 1
 
 HOME=${HOME:-/home/$(whoami)}
 echo -e "${GREEN}Using home directory: $HOME${NC}"
