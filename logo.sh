@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Define color codes
 BLUE='\033[1;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Display the logo and text with the same color
 echo -e "${BLUE}"
 echo "░█▀▄░█▀█░█▀█░█▀▀        "
 echo "░█▀▄░█▀█░█░█░█░█        "
