@@ -4,9 +4,9 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 RED='\033[0;31m'
-NC='\033[0m' # Tidak ada warna
+NC='\033[0m' # No Color
 
-log "info" "Fetching and running ..."
+echo -e "${CYAN}[INFO] Fetching and running ...${NC}"
 sleep 5
 curl -s https://raw.githubusercontent.com/bangpateng/symphony/main/logo.sh | bash
 sleep 1
