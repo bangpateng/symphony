@@ -16,7 +16,7 @@ echo -e "${GREEN}Using home directory: $HOME${NC}"
 
 echo -e "${CYAN}Masukkan nama validator (MONIKER):${NC}"
 read MONIKER
-echo -e "${CYAN}Masukkan ID chain (misalnya, symphony-testnet-2):${NC}"
+echo -e "${CYAN}Masukkan ID chain (misalnya, symphony-testnet-3):${NC}"
 read CHAIN_ID
 echo -e "${CYAN}Masukkan port Symphony (misalnya, 15):${NC}"
 read SYMPHONY_PORT
@@ -44,7 +44,7 @@ rm -rf symphony
 cd $HOME
 git clone https://github.com/Orchestra-Labs/symphony
 cd symphony
-git checkout v0.2.1
+git checkout v0.3.0
 
 go install -mod=readonly -tags "netgo ledger" -ldflags '-X github.com/cosmos/cosmos-sdk/version.Name=symphony -X github.com/cosmos/cosmos-sdk/version.AppName=symphonyd -X github.com/cosmos/cosmos-sdk/version.Version=0.2.1 -X github.com/cosmos/cosmos-sdk/version.Commit=a17ff13d6cd2605e3a536c529094d852b547664a -X "github.com/cosmos/cosmos-sdk/version.BuildTags=netgo,ledger" -w -s' -trimpath github.com/osmosis-labs/osmosis/v23/cmd/symphonyd
 
@@ -58,12 +58,11 @@ symphonyd init $MONIKER --chain-id $CHAIN_ID
 symphonyd config chain-id $CHAIN_ID
 symphonyd config keyring-backend test
 
-wget -O $HOME/.symphonyd/config/genesis.json http://filex.bangpateng.xyz/snapshot/symphony/genesis.json
-wget -O $HOME/.symphonyd/config/addrbook.json http://filex.bangpateng.xyz/snapshot/symphony/addrbook.json
+wget -O $HOME/.symphonyd/config/genesis.json https://raw.githubusercontent.com/Orchestra-Labs/symphony/main/networks/symphony-testnet-3/genesis.json
 
-seeds=""
+seeds="10838131d11f546751178df1e1045597aad6366d@34.41.169.77:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$seeds\"/" $HOME/.symphonyd/config/config.toml
-peers="016eb93b77457cbc8793ba1ee01f7e2fa2e63a3b@136.243.13.36:29156,8df964c61393d33d11f7c821aba1a72f428c0d24@34.41.129.120:26656,298743e0b4813ada523e26922d335a3fb37ec58a@37.27.195.219:26656,785f5e73e26623214269909c0be2df3f767fbe50@35.225.73.240:26656,22e9b542b7f690922e846f479878ab391e69c4c3@57.129.35.242:26656,9d4ee7dea344cc5ca83215cf7bf69ba4001a6c55@5.9.73.170:29156,77ce4b0a96b3c3d6eb2beb755f9f6f573c1b4912@178.18.251.146:22656,27c6b80a1235d41196aa56459689c28f285efd15@136.243.104.103:24856,adc09b9238bc582916abda954b081220d6f9cbc2@34.172.132.224:26656"
+peers="eea2dc7e9abfd18787d4cc2c728689ad658cd3a2@34.66.161.223:26656,3b8cd0dc5e61e36630a760ec1d3b1e05223624c0@88.99.149.170:21656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.symphonyd/config/config.toml
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0note\"/" $HOME/.symphonyd/config/app.toml
 
