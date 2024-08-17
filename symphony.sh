@@ -58,8 +58,8 @@ symphonyd init $MONIKER --chain-id $CHAIN_ID
 symphonyd config chain-id $CHAIN_ID
 symphonyd config keyring-backend test
 
-curl -Ls https://snap.nodex.one/symphony-testnet/genesis.json > $HOME/.symphonyd/config/genesis.json
-curl -Ls https://snap.nodex.one/symphony-testnet/addrbook.json > $HOME/.symphonyd/config/addrbook.json
+curl -Ls https://raw.githubusercontent.com/bangpateng/symphony/main/genesis.json > $HOME/.symphonyd/config/genesis.json
+curl -Ls https://raw.githubusercontent.com/bangpateng/symphony/main/addrbook.json > $HOME/.symphonyd/config/addrbook.json
 
 seeds="10838131d11f546751178df1e1045597aad6366d@34.41.169.77:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$seeds\"/" $HOME/.symphonyd/config/config.toml
