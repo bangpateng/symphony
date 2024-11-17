@@ -39,14 +39,12 @@ echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bash_profile
 source ~/.bash_profile
 go version
 
+cd $HOME || return
 rm -rf symphony
-
-cd $HOME
-git clone https://github.com/Orchestra-Labs/symphony
+git clone https://github.com/Orchestra-Labs/symphony.git
 cd symphony
 git checkout v0.4.1
-
-go install -mod=readonly -tags "netgo ledger" -ldflags '-X github.com/cosmos/cosmos-sdk/version.Name=symphony -X github.com/cosmos/cosmos-sdk/version.AppName=symphonyd -X github.com/cosmos/cosmos-sdk/version.Version=0.2.1 -X github.com/cosmos/cosmos-sdk/version.Commit=a17ff13d6cd2605e3a536c529094d852b547664a -X "github.com/cosmos/cosmos-sdk/version.BuildTags=netgo,ledger" -w -s' -trimpath github.com/osmosis-labs/osmosis/v23/cmd/symphonyd
+make install
 
 # Verifikasi apakah symphonyd tersedia
 if ! command -v symphonyd &> /dev/null; then
